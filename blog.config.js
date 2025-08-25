@@ -1,4 +1,4 @@
-// 注: process.env.XX是Vercel的环境变量，配置方式见：https://docs.tangly1024.com/article/how-to-config-notion-next#c4768010ae7d44609b744e79e2f9959a
+// 注: process.env.XX是Vercel的环境变量，配置方式见：https://docs.luolink.com/article/how-to-config-notion-next#c4768010ae7d44609b744e79e2f9959a
 
 const BLOG = {
   // Important page_id！！！Duplicate Template from  https://www.notion.so/tanghh/02ab3b8678004aa69e9e415905ef32a5
@@ -14,7 +14,7 @@ const BLOG = {
   APPEARANCE: process.env.NEXT_PUBLIC_APPEARANCE || 'light', // ['light', 'dark', 'auto'], // light 日间模式 ， dark夜间模式， auto根据时间和主题自动夜间模式
   APPEARANCE_DARK_TIME: process.env.NEXT_PUBLIC_APPEARANCE_DARK_TIME || [18, 6], // 夜间模式起至时间，false时关闭根据时间自动切换夜间模式
 
-  AUTHOR: process.env.NEXT_PUBLIC_AUTHOR || 'Luolink', // 您的昵称 例如 tangly1024
+  AUTHOR: process.env.NEXT_PUBLIC_AUTHOR || 'Luolink', // 您的昵称 例如 luolink
   BIO: process.env.NEXT_PUBLIC_BIO || '一个普通的干饭人🍚', // 作者简介
   LINK: process.env.NEXT_PUBLIC_LINK || 'https://luolink.com', // 网站地址
   KEYWORDS: process.env.NEXT_PUBLIC_KEYWORD || 'luolink的博客', // 网站关键词 英文逗号隔开
