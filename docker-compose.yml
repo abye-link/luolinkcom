@@ -1,0 +1,11 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile   # 你的 Dockerfile 名称与路径
+    image: luolinkcom:latest   # 可自定义
+    ports:
+      - "3000:3000"            # 容器端口↔宿主机端口
+    env_file:
+      - .env                   # 如需环境变量，放到仓库根的 .env
+    restart: unless-stopped
