@@ -1,25 +1,38 @@
+# compose.yaml
 services:
   web:
     build:
       context: .
       dockerfile: Dockerfile
-    # 不要映射宿主机端口
-    # ports:
-    #   - "3002:3000"
+    environment:
+      NODE_ENV: production
+      PORT: 3000                  # 应用在容器内监听 3000；确保你的应用监听 0.0.0.0
     expose:
-      - "3000"
+      - "3000"                    # 只在容器网络内暴露，交给 Traefik 转发
+    restart: unless-stopped
+
+    # === Traefik 路由 & 证书 ===
     labels:
       - "traefik.enable=true"
+      - "traefik.docker.network=${TRAEFIK_NETWORK:-traefik}"
 
-      # HTTP → HTTPS 重定向
+      # HTTP -> HTTPS 重定向（两个域名）
       - "traefik.http.middlewares.luolink-redirect.redirectscheme.scheme=https"
       - "traefik.http.routers.luolink-http.rule=Host(`www.luolink.com`) || Host(`luolinkcom-luolink-qndgjp-a32530-94-72-122-85.traefik.me`)"
       - "traefik.http.routers.luolink-http.entrypoints=web"
       - "traefik.http.routers.luolink-http.middlewares=luolink-redirect@docker"
 
-      # HTTPS 路由（命中后转发到 3000）
+      # HTTPS 路由（命中后把请求转发到容器 3000）
       - "traefik.http.routers.luolink-https.rule=Host(`www.luolink.com`) || Host(`luolinkcom-luolink-qndgjp-a32530-94-72-122-85.traefik.me`)"
       - "traefik.http.routers.luolink-https.entrypoints=websecure"
       - "traefik.http.routers.luolink-https.tls=true"
       - "traefik.http.routers.luolink-https.tls.certresolver=letsencrypt"
       - "traefik.http.services.luolink-svc.loadbalancer.server.port=3000"
+
+    networks:
+      - traefik
+
+networks:
+  traefik:
+    external: true
+    name: ${TRAEFIK_NETWORK:-traefik}
