@@ -13,12 +13,12 @@ services:
 
       # HTTP → HTTPS 重定向
       - "traefik.http.middlewares.luolink-redirect.redirectscheme.scheme=https"
-      - "traefik.http.routers.luolink-http.rule=Host(`www.luolink.com`) || Host(`luolinkcom-luolink-qndgjp-a32530-94-72-122-85.traefik.me`)"
+      - "traefik.http.routers.luolink-http.rule=Host(`luolink.com`) || Host(`luolinkcom-luolink-qndgjp-a32530-94-72-122-85.traefik.me`)"
       - "traefik.http.routers.luolink-http.entrypoints=web"
       - "traefik.http.routers.luolink-http.middlewares=luolink-redirect@docker"
 
       # HTTPS 路由（命中后转发到 3000）
-      - "traefik.http.routers.luolink-https.rule=Host(`www.luolink.com`) || Host(`luolinkcom-luolink-qndgjp-a32530-94-72-122-85.traefik.me`)"
+      - "traefik.http.routers.luolink-https.rule=Host(`luolink.com`) || Host(`luolinkcom-luolink-qndgjp-a32530-94-72-122-85.traefik.me`)"
       - "traefik.http.routers.luolink-https.entrypoints=websecure"
       - "traefik.http.routers.luolink-https.tls=true"
       - "traefik.http.routers.luolink-https.tls.certresolver=letsencrypt"
